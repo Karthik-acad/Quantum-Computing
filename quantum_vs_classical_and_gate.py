@@ -1,7 +1,7 @@
 from qiskit import QuantumCircuit
 from qiskit.primitives import Sampler # Qiskit's modern simulator interface
 
-# --- 1. The Classical Experiment ---
+# 1. The Classical Experiment
 
 def classical_and(a, b):
     """Performs a classical AND operation."""
@@ -10,7 +10,7 @@ def classical_and(a, b):
     else:
         return 0
 
-# --- 2. The Quantum Simulation ---
+# 2. The Quantum Simulation
 
 def quantum_and(a, b):
     """Simulates an AND operation using a quantum circuit."""
@@ -19,7 +19,7 @@ def quantum_and(a, b):
     # We need 1 classical bit to store the measured result
     qc = QuantumCircuit(3, 1)
 
-    # --- Step 1: Encode classical inputs ---
+    # Step 1: Encode classical inputs
     # Qubits start as |0⟩. We use an X-gate (quantum NOT)
     # to flip a qubit to |1⟩ if the input is 1.
     if a == 1:
@@ -30,7 +30,7 @@ def quantum_and(a, b):
     # Add a barrier for visualization
     qc.barrier()
 
-    # --- Step 2: Apply the logic gate ---
+    # Step 2: Apply the logic gate
     # Use a Toffoli (CCX) gate.
     # It flips qubit 2 (target) only if 
     # qubit 0 AND qubit 1 are both |1⟩.
@@ -38,12 +38,12 @@ def quantum_and(a, b):
     
     qc.barrier()
 
-    # --- Step 3: Measure the result ---
+    # Step 3: Measure the result
     # We measure the target qubit (q2) and store
     # a classical 0 or 1 in our classical bit (c0).
     qc.measure(2, 0)
     
-    # --- Step 4: Run the simulation ---
+    # Step 4: Run the simulation
     # We use the Sampler to run the circuit.
     # shots=1 is enough because this circuit is deterministic.
     sampler = Sampler()
@@ -57,7 +57,7 @@ def quantum_and(a, b):
     measured_result = int(list(counts.keys())[0])
     return measured_result, qc # Return the result and the circuit
 
-# --- 3. Compare the Results ---
+# 3. Compare the Results
 
 inputs = [(0, 0), (0, 1), (1, 0), (1, 1)]
 print("--- Classical vs. Quantum Simulation ---")
